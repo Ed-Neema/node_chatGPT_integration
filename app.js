@@ -9,6 +9,7 @@ require("dotenv").config();
 require("./models/booksModel");
 
 const app = express();
+app.use(express.json());
 
 mongoose.connect(process.env.MONGO_DB,{}).then(()=>{
     console.log("Connection to MongoDB successful");
@@ -20,7 +21,7 @@ mongoose.connect(process.env.MONGO_DB,{}).then(()=>{
 // Routes
 app.post("/api/books", createBook);
 app.patch("/api/books", editBook);
-app.delete("/api/books", deleteBook);
+app.delete("/api/books/:book_id", deleteBook);
 app.get("/api/books", getBooks);
 
 app.listen(8000, () => {
